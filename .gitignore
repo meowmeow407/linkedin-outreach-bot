@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+
+# Local Environment / Credentials
+backend/.env
+data/cookies.json
+
+# Local Data / Temp Logs
+data/leads.json
+data/logs.json
+data/resumes/tailored_*
+scratch/
+
+# OS Files
+.DS_Store
+Thumbs.db

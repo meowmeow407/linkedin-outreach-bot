@@ -1,0 +1,18 @@
+CANDIDATE NAME: Shyam
+ROLE TYPE: Java Developer
+SUMMARY:
+Experienced Java Developer with a demonstrated history of delivering high-quality solutions. Specialized in C2C contracts.
+
+CORE EXPERTISE:
+- Java/J2EE, Spring Boot, Microservices (for Java Developers)
+- Requirements gathering, Agile/Scrum, User Stories (for Business Analysts)
+- Project Lifecycle, Budgeting, Risk Management (for Project Managers)
+- SQL, Python, Tableau, Data Cleaning (for Data Analysts)
+
+PROFESSIONAL EXPERIENCE:
+- Senior Consultant | 2022 - Present
+  * Spearheaded software development and deployment processes.
+  * Optimized workflows leading to a 20% increase in efficiency.
+- Software Engineer | 2019 - 2022
+  * Developed robust application features based on user feedback.
+  * Collaborated with cross-functional teams to deliver projects on time.
