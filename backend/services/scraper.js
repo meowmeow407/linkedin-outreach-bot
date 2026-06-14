@@ -58,21 +58,41 @@ async function scrapeLinkedInPosts({ keywords, limit = 15 }) {
 
   console.log(`[Scraper] Starting scrape for keywords: "${keywords}"`);
   
-  // Launch Playwright in headed mode so the developer can see the login window
+  // Launch Playwright (headless in production/cloud, headed in development)
+  const isCloud = process.env.RENDER === 'true' || process.env.NODE_ENV === 'production' || process.env.HEADLESS === 'true';
+  console.log(`[Scraper] Launching browser (headless: ${isCloud})...`);
   const browser = await chromium.launch({
-    headless: false
+    headless: isCloud,
+    args: isCloud ? ['--no-sandbox', '--disable-setuid-sandbox'] : []
   });
 
   const context = await browser.newContext();
 
-  // Load session cookies if they exist
-  if (fs.existsSync(COOKIES_PATH)) {
-    console.log('[Scraper] Restoring saved session cookies...');
+  // Load session cookies if they exist in environment variable or file
+  let cookies = null;
+  if (process.env.LINKEDIN_COOKIES) {
+    console.log('[Scraper] Restoring session cookies from environment variable...');
     try {
-      const cookies = JSON.parse(fs.readFileSync(COOKIES_PATH, 'utf8'));
+      cookies = JSON.parse(process.env.LINKEDIN_COOKIES);
+    } catch (e) {
+      console.warn('[Scraper] Failed to parse LINKEDIN_COOKIES env variable:', e.message);
+    }
+  }
+
+  if (!cookies && fs.existsSync(COOKIES_PATH)) {
+    console.log('[Scraper] Restoring saved session cookies from file...');
+    try {
+      cookies = JSON.parse(fs.readFileSync(COOKIES_PATH, 'utf8'));
+    } catch (e) {
+      console.warn('[Scraper] Failed to load saved cookies from file:', e.message);
+    }
+  }
+
+  if (cookies) {
+    try {
       await context.addCookies(cookies);
     } catch (e) {
-      console.warn('[Scraper] Failed to load saved cookies:', e.message);
+      console.warn('[Scraper] Failed to add cookies to browser context:', e.message);
     }
   }
 

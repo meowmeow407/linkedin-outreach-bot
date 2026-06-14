@@ -5,6 +5,7 @@
   "description": "LinkedIn Job Scraper and Gmail Auto-Applier Bot",
   "scripts": {
     "setup": "npm install --prefix backend",
+    "build": "npm run setup && npx --prefix backend playwright install chromium",
     "start": "npm start --prefix backend",
     "dev:backend": "npm run dev --prefix backend",
     "dev:frontend": "npm run dev --prefix frontend"
